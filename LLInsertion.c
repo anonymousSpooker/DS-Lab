@@ -34,6 +34,31 @@ struct Node *enqueueRear(struct Node *head, int newData){
       return head;
 }
 
+struct Node *enqueuePosition(struct Node *head, int newData, int position){
+      struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+      newNode -> data = newData;
+      newNode -> next = NULL;
+      
+      if(position == 1){
+            newNode -> next = head;
+            head = newNode;
+            return head;
+      }
+      struct Node *current = head;
+      for(int i=1; i<position-1 && current!=NULL; i++)
+            current = current -> next;
+      if(current == NULL){
+            free(newNode);
+            return head;
+      }
+      
+      //Main Code Here:
+      newNode -> next = current -> next;
+      current -> next = newNode;
+      
+      return head;
+}
+
 void displayLinkedList(){
       if(head == NULL){
             printf("List Empty!");

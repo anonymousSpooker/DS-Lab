@@ -16,6 +16,24 @@ struct Node *enqueueFront(struct Node *head, int newData){
       return head;
 }
 
+struct Node *enqueueRear(struct Node *head, int newData){
+      struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+      newNode -> data = newData;
+      newNode -> next = NULL;
+      
+      if(head == NULL){
+            head = newNode;
+      }
+      else{
+            struct Node *current = head;
+            while(current != NULL){
+                  current = current -> next;
+            }
+            current -> next = newNode;
+      }
+      return head;
+}
+
 void displayLinkedList(){
       if(head == NULL){
             printf("List Empty!");
@@ -33,7 +51,7 @@ void displayLinkedList(){
 
 int main(){
       while(1){
-            printf("\n1)Insert\n2)Display Linked List\n3)Exit\nChoose the operation:");
+            printf("\n1)Insert at the begining of the list\n2)Insert at the end of the list\n3)Display Linked List\n4)Exit\nChoose the operation:");
             int opr;
             scanf("%d", &opr);
             switch(opr){
@@ -44,9 +62,15 @@ int main(){
                         head = enqueueFront(head,elm);
                         break;
                   case 2:
-                        displayLinkedList();
+                        printf("Enter element to insert: ");
+                        int revElm;
+                        scanf("%d", &revElm);
+                        head = enqueueRear(head,revElm);
                         break;
                   case 3:
+                        displayLinkedList();
+                        break;
+                  case 4:
                         exit(1);
                         break;
                   default:
